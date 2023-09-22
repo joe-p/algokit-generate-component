@@ -1,0 +1,19 @@
+{
+  "name": "generate-algo-component",
+  "module": "index.ts",
+  "devDependencies": {
+    "@types/nunjucks": "^3.2.3",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "bun-types": "latest",
+    "eslint": "^8.49.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-airbnb-typescript": "^17.1.0",
+    "eslint-plugin-import": "^2.28.1",
+    "typescript": "^5.2.2"
+  },
+  "type": "module",
+  "dependencies": {
+    "nunjucks": "^3.2.4"
+  }
+}
