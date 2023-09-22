@@ -1,11 +1,14 @@
 import nunjucks from 'nunjucks';
 import { readFileSync, writeFileSync } from 'fs';
+import path from 'path';
+
+const input = './test/Dao.json';
+const outDir = path.join('test', 'components');
 
 nunjucks.configure('templates');
-
-const appSpec = JSON.parse(readFileSync('./test/Dao.json', 'utf8'));
-
+const appSpec = JSON.parse(readFileSync(input, 'utf8'));
 const className = appSpec.contract.name;
+const imports: string[] = [];
 
 Object.keys(appSpec.hints).forEach((methodSignature: string) => {
   const methodName = methodSignature.split('(')[0];
@@ -21,5 +24,12 @@ Object.keys(appSpec.hints).forEach((methodSignature: string) => {
 
   const capitalizedMethodName = methodName.charAt(0).toUpperCase() + methodName.slice(1);
 
-  writeFileSync(`./test/components/${className}${capitalizedMethodName}.tsx`, result);
+  imports.push(`${className}${capitalizedMethodName}`);
+
+  writeFileSync(path.join(outDir, `${className}${capitalizedMethodName}.tsx`), result);
+});
+
+console.log('Add the following imports to your app to begin using the components:\n');
+imports.forEach((importName: string) => {
+  console.log(`import ${importName} from '${path.join(outDir, `${importName}.tsx`)}'`);
 });
