@@ -1,5 +1,7 @@
 module.exports = {
-  ignorePatterns: [],
+  ignorePatterns: [
+    'test/components/*',
+  ],
   env: {
     browser: true,
     es2021: true,

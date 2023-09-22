@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import algosdk from 'algosdk'
 import { ReactNode, useState } from 'react'
-import { {{ className }}Client, MethodArgs } from '{{ clientPath }}'
+import { DaoClient, MethodArgs } from './DaoClient.ts'
 
 type Props = {
   algodClient: algosdk.Algodv2
@@ -9,25 +9,25 @@ type Props = {
   buttonClass: string
   buttonLoadingNode?: ReactNode
   buttonNode: ReactNode
-  typedClient: {{ className }}Client
-  args: MethodArgs<'{{ methodSignature }}'>
+  typedClient: DaoClient
+  args: MethodArgs<'bootstrap()uint64'>
 }
 
-const {{ className }}{{ methodName | capitalize}} = (props: Props) => {
+const DaoBootstrap = (props: Props) => {
   const [loading, setLoading] = useState<boolean>(false)
 
   const callMethod = async () => {
     setLoading(true)
-    console.log(`Calling {{ methodName }} with args: ${JSON.stringify(props.args)}`)
-    await props.typedClient.{{ methodName }}(props.args)
+    console.log(`Calling bootstrap with args: ${JSON.stringify(props.args)}`)
+    await props.typedClient.bootstrap(props.args)
     setLoading(false)
   }
 
-  {% raw %}return (
+  return (
     <button className={props.buttonClass} onClick={callMethod}>
       {loading ? props.buttonLoadingNode || props.buttonNode : props.buttonNode}
     </button>
-  ){% endraw %}
+  )
 }
 
-export default {{ className }}{{ methodName | capitalize }}
+export default DaoBootstrap
