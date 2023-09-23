@@ -1,8 +1,18 @@
 /* eslint-disable no-console */
 import algosdk from 'algosdk'
 import { ReactNode, useState } from 'react'
-import { DaoClient, MethodArgs } from './DaoClient.ts'
+import { Dao, DaoClient } from '../DaoClient.ts'
 
+/* Example usage
+<DaoGetproposal
+  algodClient={algodClient}
+  appID={appID}
+  buttonClass="btn m-2"
+  buttonLoadingNode=<span className="loading loading-spinner" />
+  buttonNode="Call getProposal"
+  typedClient={typedClient}
+/>
+*/
 type Props = {
   algodClient: algosdk.Algodv2
   appID: number
@@ -10,7 +20,7 @@ type Props = {
   buttonLoadingNode?: ReactNode
   buttonNode: ReactNode
   typedClient: DaoClient
-  args: MethodArgs<'getProposal()string'>
+  returnCallback?: (returnValue: Dao['methods']['getProposal()string']['returns']) => void
 }
 
 const DaoGetproposal = (props: Props) => {
@@ -18,8 +28,14 @@ const DaoGetproposal = (props: Props) => {
 
   const callMethod = async () => {
     setLoading(true)
-    console.log(`Calling getProposal with args: ${JSON.stringify(props.args)}`)
-    await props.typedClient.getProposal(props.args)
+    console.log(`Calling getProposal`)
+    const result = await props.typedClient.getProposal({
+    })
+    
+    if (props.returnCallback) {
+      props.returnCallback(result)
+    }
+    
     setLoading(false)
   }
 

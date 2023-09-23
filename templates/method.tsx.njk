@@ -1,8 +1,25 @@
 /* eslint-disable no-console */
 import algosdk from 'algosdk'
 import { ReactNode, useState } from 'react'
-import { {{ className }}Client, MethodArgs } from '{{ clientPath }}'
+import { {{ className }}, {{ className }}Client } from '{{ clientPath }}'
 
+/* Example usage
+<{{ className }}{{ methodName | capitalize}}
+  algodClient={algodClient}
+  appID={appID}
+  buttonClass="btn m-2"
+  buttonLoadingNode=<span className="loading loading-spinner" />
+  buttonNode="Call {{ methodName }}"
+  typedClient={typedClient}
+  {%- for arg in args %}
+  {{ arg }}={% raw %}{{% endraw %}{{ arg }}{% raw %}}{% endraw %}
+  {%- endfor %}
+/>
+*/
+{% if args | length -%}
+type {{ className }}{{ methodName | capitalize}}Args = Dao['methods']['{{ methodSignature }}']['argsObj']
+
+{% endif -%}
 type Props = {
   algodClient: algosdk.Algodv2
   appID: number
@@ -10,7 +27,12 @@ type Props = {
   buttonLoadingNode?: ReactNode
   buttonNode: ReactNode
   typedClient: {{ className }}Client
-  args: MethodArgs<'{{ methodSignature }}'>
+  {%- if returnType !== 'void' %}
+  returnCallback?: (returnValue: Dao['methods']['{{ methodSignature }}']['returns']) => void
+  {%- endif %}
+  {%- for arg in args %}
+  {{ arg }}: {{ className }}{{ methodName | capitalize}}Args['{{ arg }}']
+  {%- endfor %}
 }
 
 const {{ className }}{{ methodName | capitalize}} = (props: Props) => {
@@ -18,8 +40,17 @@ const {{ className }}{{ methodName | capitalize}} = (props: Props) => {
 
   const callMethod = async () => {
     setLoading(true)
-    console.log(`Calling {{ methodName }} with args: ${JSON.stringify(props.args)}`)
-    await props.typedClient.{{ methodName }}(props.args)
+    console.log(`Calling {{ methodName }}`)
+    {% if returnType !== 'void' %}const result = {% endif -%}await props.typedClient.{{ methodName }}({% raw %}{{% endraw %}
+    {%- for arg in args %}
+      {{ arg }}: props.{{ arg }},
+    {%- endfor %}
+    {% raw %}}{% endraw %})
+    {% if returnType !== 'void' %}
+    if (props.returnCallback) {
+      props.returnCallback(result)
+    }
+    {% endif %}
     setLoading(false)
   }
 

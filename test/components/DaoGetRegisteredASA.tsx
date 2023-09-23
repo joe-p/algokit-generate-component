@@ -1,8 +1,18 @@
 /* eslint-disable no-console */
 import algosdk from 'algosdk'
 import { ReactNode, useState } from 'react'
-import { DaoClient, MethodArgs } from './DaoClient.ts'
+import { Dao, DaoClient } from '../DaoClient.ts'
 
+/* Example usage
+<DaoGetregisteredasa
+  algodClient={algodClient}
+  appID={appID}
+  buttonClass="btn m-2"
+  buttonLoadingNode=<span className="loading loading-spinner" />
+  buttonNode="Call getRegisteredASA"
+  typedClient={typedClient}
+/>
+*/
 type Props = {
   algodClient: algosdk.Algodv2
   appID: number
@@ -10,7 +20,7 @@ type Props = {
   buttonLoadingNode?: ReactNode
   buttonNode: ReactNode
   typedClient: DaoClient
-  args: MethodArgs<'getRegisteredASA()uint64'>
+  returnCallback?: (returnValue: Dao['methods']['getRegisteredASA()uint64']['returns']) => void
 }
 
 const DaoGetregisteredasa = (props: Props) => {
@@ -18,8 +28,14 @@ const DaoGetregisteredasa = (props: Props) => {
 
   const callMethod = async () => {
     setLoading(true)
-    console.log(`Calling getRegisteredASA with args: ${JSON.stringify(props.args)}`)
-    await props.typedClient.getRegisteredASA(props.args)
+    console.log(`Calling getRegisteredASA`)
+    const result = await props.typedClient.getRegisteredASA({
+    })
+    
+    if (props.returnCallback) {
+      props.returnCallback(result)
+    }
+    
     setLoading(false)
   }
 

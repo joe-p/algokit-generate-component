@@ -1,8 +1,18 @@
 /* eslint-disable no-console */
 import algosdk from 'algosdk'
 import { ReactNode, useState } from 'react'
-import { DaoClient, MethodArgs } from './DaoClient.ts'
+import { Dao, DaoClient } from '../DaoClient.ts'
 
+/* Example usage
+<DaoBootstrap
+  algodClient={algodClient}
+  appID={appID}
+  buttonClass="btn m-2"
+  buttonLoadingNode=<span className="loading loading-spinner" />
+  buttonNode="Call bootstrap"
+  typedClient={typedClient}
+/>
+*/
 type Props = {
   algodClient: algosdk.Algodv2
   appID: number
@@ -10,7 +20,7 @@ type Props = {
   buttonLoadingNode?: ReactNode
   buttonNode: ReactNode
   typedClient: DaoClient
-  args: MethodArgs<'bootstrap()uint64'>
+  returnCallback?: (returnValue: Dao['methods']['bootstrap()uint64']['returns']) => void
 }
 
 const DaoBootstrap = (props: Props) => {
@@ -18,8 +28,14 @@ const DaoBootstrap = (props: Props) => {
 
   const callMethod = async () => {
     setLoading(true)
-    console.log(`Calling bootstrap with args: ${JSON.stringify(props.args)}`)
-    await props.typedClient.bootstrap(props.args)
+    console.log(`Calling bootstrap`)
+    const result = await props.typedClient.bootstrap({
+    })
+    
+    if (props.returnCallback) {
+      props.returnCallback(result)
+    }
+    
     setLoading(false)
   }
 

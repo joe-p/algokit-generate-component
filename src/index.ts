@@ -15,11 +15,15 @@ Object.keys(appSpec.hints).forEach((methodSignature: string) => {
 
   if (appSpec.hints[methodSignature].call_config.no_op !== 'CALL') return;
 
+  const { args } = appSpec.contract.methods.find((m: {name: string}) => m.name === methodName);
+
   const result = nunjucks.render('method.tsx.njk', {
     className,
     methodName,
     methodSignature,
-    clientPath: `./${className}Client.ts`,
+    clientPath: `../${className}Client.ts`,
+    args: args.map((a: {name: string}) => a.name),
+    returnType: methodSignature.split(')').at(-1),
   });
 
   const capitalizedMethodName = methodName.charAt(0).toUpperCase() + methodName.slice(1);

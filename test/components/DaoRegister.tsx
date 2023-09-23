@@ -1,7 +1,20 @@
 /* eslint-disable no-console */
 import algosdk from 'algosdk'
 import { ReactNode, useState } from 'react'
-import { DaoClient, MethodArgs } from './DaoClient.ts'
+import { Dao, DaoClient } from '../DaoClient.ts'
+
+/* Example usage
+<DaoRegister
+  algodClient={algodClient}
+  appID={appID}
+  buttonClass="btn m-2"
+  buttonLoadingNode=<span className="loading loading-spinner" />
+  buttonNode="Call register"
+  typedClient={typedClient}
+  registeredASA={registeredASA}
+/>
+*/
+type DaoRegisterArgs = Dao['methods']['register(asset)void']['argsObj']
 
 type Props = {
   algodClient: algosdk.Algodv2
@@ -10,7 +23,7 @@ type Props = {
   buttonLoadingNode?: ReactNode
   buttonNode: ReactNode
   typedClient: DaoClient
-  args: MethodArgs<'register(asset)void'>
+  registeredASA: DaoRegisterArgs['registeredASA']
 }
 
 const DaoRegister = (props: Props) => {
@@ -18,8 +31,11 @@ const DaoRegister = (props: Props) => {
 
   const callMethod = async () => {
     setLoading(true)
-    console.log(`Calling register with args: ${JSON.stringify(props.args)}`)
-    await props.typedClient.register(props.args)
+    console.log(`Calling register`)
+    await props.typedClient.register({
+      registeredASA: props.registeredASA,
+    })
+    
     setLoading(false)
   }
 
