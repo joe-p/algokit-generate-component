@@ -5,8 +5,6 @@ import { Dao, DaoClient } from '../DaoClient.ts'
 
 /* Example usage
 <DaoCreateApplication
-  algodClient={algodClient}
-  appID={appID}
   buttonClass="btn m-2"
   buttonLoadingNode=<span className="loading loading-spinner" />
   buttonNode="Call createApplication"
@@ -17,8 +15,6 @@ import { Dao, DaoClient } from '../DaoClient.ts'
 type DaoCreateApplicationArgs = Dao['methods']['createApplication(string)void']['argsObj']
 
 type Props = {
-  algodClient: algosdk.Algodv2
-  appID: number
   buttonClass: string
   buttonLoadingNode?: ReactNode
   buttonNode: ReactNode

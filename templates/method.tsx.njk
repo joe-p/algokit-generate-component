@@ -5,8 +5,6 @@ import { {{ className }}, {{ className }}Client } from '{{ clientPath }}'
 
 /* Example usage
 <{{ fullName }}
-  algodClient={algodClient}
-  appID={appID}
   buttonClass="btn m-2"
   buttonLoadingNode=<span className="loading loading-spinner" />
   buttonNode="Call {{ methodName }}"
@@ -21,8 +19,6 @@ type {{ fullName }}Args = Dao['methods']['{{ methodSignature }}']['argsObj']
 
 {% endif -%}
 type Props = {
-  algodClient: algosdk.Algodv2
-  appID: number
   buttonClass: string
   buttonLoadingNode?: ReactNode
   buttonNode: ReactNode
