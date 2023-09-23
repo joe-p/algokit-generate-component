@@ -4,7 +4,7 @@ import { ReactNode, useState } from 'react'
 import { Dao, DaoClient } from '../DaoClient.ts'
 
 /* Example usage
-<DaoGetregisteredasa
+<DaoGetRegisteredASA
   algodClient={algodClient}
   appID={appID}
   buttonClass="btn m-2"
@@ -23,7 +23,7 @@ type Props = {
   returnCallback?: (returnValue: Dao['methods']['getRegisteredASA()uint64']['returns']) => void
 }
 
-const DaoGetregisteredasa = (props: Props) => {
+const DaoGetRegisteredASA = (props: Props) => {
   const [loading, setLoading] = useState<boolean>(false)
 
   const callMethod = async () => {

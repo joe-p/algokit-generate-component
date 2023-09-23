@@ -18,6 +18,10 @@ Object.keys(appSpec.hints).forEach((methodSignature: string) => {
 
   const { args } = appSpec.contract.methods.find((m: {name: string}) => m.name === methodName);
 
+  const capitalizedMethodName = methodName.charAt(0).toUpperCase() + methodName.slice(1);
+  const fullName = `${className}${capitalizedMethodName}`;
+  imports.push(fullName);
+
   const result = nunjucks.render('method.tsx.njk', {
     className,
     methodName,
@@ -26,13 +30,10 @@ Object.keys(appSpec.hints).forEach((methodSignature: string) => {
     args: args.map((a: {name: string}) => a.name),
     returnType: methodSignature.split(')').at(-1),
     isCreate: callConfig.no_op === 'CREATE',
+    fullName,
   });
 
-  const capitalizedMethodName = methodName.charAt(0).toUpperCase() + methodName.slice(1);
-
-  imports.push(`${className}${capitalizedMethodName}`);
-
-  writeFileSync(path.join(outDir, `${className}${capitalizedMethodName}.tsx`), result);
+  writeFileSync(path.join(outDir, `${fullName}.tsx`), result);
 });
 
 console.log('Add the following imports to your app to begin using the components:\n');

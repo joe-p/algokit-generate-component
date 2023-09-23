@@ -4,7 +4,7 @@ import { ReactNode, useState } from 'react'
 import { Dao, DaoClient } from '../DaoClient.ts'
 
 /* Example usage
-<DaoCreateapplication
+<DaoCreateApplication
   algodClient={algodClient}
   appID={appID}
   buttonClass="btn m-2"
@@ -14,7 +14,7 @@ import { Dao, DaoClient } from '../DaoClient.ts'
   proposal={proposal}
 />
 */
-type DaoCreateapplicationArgs = Dao['methods']['createApplication(string)void']['argsObj']
+type DaoCreateApplicationArgs = Dao['methods']['createApplication(string)void']['argsObj']
 
 type Props = {
   algodClient: algosdk.Algodv2
@@ -23,10 +23,10 @@ type Props = {
   buttonLoadingNode?: ReactNode
   buttonNode: ReactNode
   typedClient: DaoClient
-  proposal: DaoCreateapplicationArgs['proposal']
+  proposal: DaoCreateApplicationArgs['proposal']
 }
 
-const DaoCreateapplication = (props: Props) => {
+const DaoCreateApplication = (props: Props) => {
   const [loading, setLoading] = useState<boolean>(false)
 
   const callMethod = async () => {
