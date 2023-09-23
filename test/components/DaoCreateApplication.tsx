@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 import { ReactNode, useState } from 'react'
-import { Dao, DaoClient } from '../DaoClient.ts'
+import { Dao, DaoClient } from '../contracts/DaoClient'
+import { useWallet } from '@txnlab/use-wallet'
 
 /* Example usage
 <DaoCreateApplication
@@ -23,13 +24,19 @@ type Props = {
 
 const DaoCreateApplication = (props: Props) => {
   const [loading, setLoading] = useState<boolean>(false)
+  const { activeAddress, signer } = useWallet()
 
   const callMethod = async () => {
     setLoading(true)
     console.log(`Calling createApplication`)
-    await props.typedClient.create.createApplication({
-      proposal: props.proposal,
-    })
+    await props.typedClient.create.createApplication(
+      {
+        proposal: props.proposal,
+      },
+      {
+        sender: { signer, addr: activeAddress! },
+      },
+    )
     
     setLoading(false)
   }

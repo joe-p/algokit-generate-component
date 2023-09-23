@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 import { ReactNode, useState } from 'react'
-import { {{ className }}, {{ className }}Client } from '{{ clientPath }}'
+import { {{ className }}, {{ className }}Client } from '../contracts/DaoClient'
+import { useWallet } from '@txnlab/use-wallet'
 
 /* Example usage
 <{{ fullName }}
@@ -32,15 +33,21 @@ type Props = {
 
 const {{ fullName }} = (props: Props) => {
   const [loading, setLoading] = useState<boolean>(false)
+  const { activeAddress, signer } = useWallet()
 
   const callMethod = async () => {
     setLoading(true)
     console.log(`Calling {{ methodName }}`)
-    {% if returnType !== 'void' %}const result = {% endif -%}await props.typedClient.{% if isCreate %}create.{% endif %}{{ methodName }}({% raw %}{{% endraw %}
-    {%- for arg in args %}
-      {{ arg }}: props.{{ arg }},
-    {%- endfor %}
-    {% raw %}}{% endraw %})
+    {% if returnType !== 'void' %}const result = {% endif -%}await props.typedClient.{% if isCreate %}create.{% endif %}{{ methodName }}(
+      {% raw %}{{% endraw %}
+      {%- for arg in args %}
+        {{ arg }}: props.{{ arg }},
+      {%- endfor %}
+      {% raw %}},
+      {
+        sender: { signer, addr: activeAddress! },
+      },{% endraw %}
+    )
     {% if returnType !== 'void' %}
     if (props.returnCallback) {
       props.returnCallback(result)

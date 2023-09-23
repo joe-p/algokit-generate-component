@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 import { ReactNode, useState } from 'react'
-import { Dao, DaoClient } from '../DaoClient.ts'
+import { Dao, DaoClient } from '../contracts/DaoClient'
+import { useWallet } from '@txnlab/use-wallet'
 
 /* Example usage
 <DaoGetRegisteredASA
@@ -20,12 +21,18 @@ type Props = {
 
 const DaoGetRegisteredASA = (props: Props) => {
   const [loading, setLoading] = useState<boolean>(false)
+  const { activeAddress, signer } = useWallet()
 
   const callMethod = async () => {
     setLoading(true)
     console.log(`Calling getRegisteredASA`)
-    const result = await props.typedClient.getRegisteredASA({
-    })
+    const result = await props.typedClient.getRegisteredASA(
+      {
+      },
+      {
+        sender: { signer, addr: activeAddress! },
+      },
+    )
     
     if (props.returnCallback) {
       props.returnCallback(result)

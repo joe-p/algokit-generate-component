@@ -26,7 +26,6 @@ Object.keys(appSpec.hints).forEach((methodSignature: string) => {
     className,
     methodName,
     methodSignature,
-    clientPath: `../${className}Client.ts`,
     args: args.map((a: {name: string}) => a.name),
     returnType: methodSignature.split(')').at(-1),
     isCreate: callConfig.no_op === 'CREATE',
