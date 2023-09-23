@@ -41,7 +41,7 @@ const {{ className }}{{ methodName | capitalize}} = (props: Props) => {
   const callMethod = async () => {
     setLoading(true)
     console.log(`Calling {{ methodName }}`)
-    {% if returnType !== 'void' %}const result = {% endif -%}await props.typedClient.{{ methodName }}({% raw %}{{% endraw %}
+    {% if returnType !== 'void' %}const result = {% endif -%}await props.typedClient.{% if isCreate %}create.{% endif %}{{ methodName }}({% raw %}{{% endraw %}
     {%- for arg in args %}
       {{ arg }}: props.{{ arg }},
     {%- endfor %}

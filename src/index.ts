@@ -13,7 +13,8 @@ const imports: string[] = [];
 Object.keys(appSpec.hints).forEach((methodSignature: string) => {
   const methodName = methodSignature.split('(')[0];
 
-  if (appSpec.hints[methodSignature].call_config.no_op !== 'CALL') return;
+  const callConfig = appSpec.hints[methodSignature].call_config;
+  if (!['CALL', 'CREATE'].includes(callConfig.no_op)) return;
 
   const { args } = appSpec.contract.methods.find((m: {name: string}) => m.name === methodName);
 
@@ -24,6 +25,7 @@ Object.keys(appSpec.hints).forEach((methodSignature: string) => {
     clientPath: `../${className}Client.ts`,
     args: args.map((a: {name: string}) => a.name),
     returnType: methodSignature.split(')').at(-1),
+    isCreate: callConfig.no_op === 'CREATE',
   });
 
   const capitalizedMethodName = methodName.charAt(0).toUpperCase() + methodName.slice(1);
