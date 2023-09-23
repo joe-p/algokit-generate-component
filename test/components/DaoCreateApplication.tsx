@@ -1,5 +1,4 @@
 /* eslint-disable no-console */
-import algosdk from 'algosdk'
 import { ReactNode, useState } from 'react'
 import { Dao, DaoClient } from '../DaoClient.ts'
 
@@ -42,4 +41,4 @@ const DaoCreateApplication = (props: Props) => {
   )
 }
 
-export default DaoCreateapplication
+export default DaoCreateApplication
