@@ -12,7 +12,8 @@
     "algokit-generate-component": "bin/algokit-generate-component.js"
   },
   "scripts": {
-    "prepack": "tsc"
+    "prepack": "tsc",
+    "test": "bun bin/algokit-generate-component.js test/Dao.json test/components"
   },
   "devDependencies": {
     "@types/nunjucks": "^3.2.3",

@@ -4,8 +4,8 @@ import path from 'path';
 import { readFileSync, writeFileSync } from 'fs';
 import generate from '../src';
 
-const outDir = path.join('test', 'components');
-const inputString = readFileSync('./test/Dao.json', 'utf8');
+const outDir = process.argv[3];
+const inputString = readFileSync(process.argv[2], 'utf8');
 const result = generate(inputString);
 
 result.forEach((r) => writeFileSync(path.join(outDir, `${r.name}.tsx`), r.content));
