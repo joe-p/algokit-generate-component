@@ -16,7 +16,6 @@ type Props = {
   buttonLoadingNode?: ReactNode
   buttonNode: ReactNode
   typedClient: DaoClient
-  returnCallback?: (returnValue: Dao['methods']['bootstrap()uint64']['returns']) => void
 }
 
 const DaoBootstrap = (props: Props) => {
@@ -26,18 +25,13 @@ const DaoBootstrap = (props: Props) => {
   const callMethod = async () => {
     setLoading(true)
     console.log(`Calling bootstrap`)
-    const result = await props.typedClient.bootstrap(
+    await props.typedClient.bootstrap(
       {
       },
       {
         sender: { signer, addr: activeAddress! },
       },
     )
-    
-    if (props.returnCallback) {
-      props.returnCallback(result)
-    }
-    
     setLoading(false)
   }
 

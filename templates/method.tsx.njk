@@ -23,9 +23,6 @@ type Props = {
   buttonLoadingNode?: ReactNode
   buttonNode: ReactNode
   typedClient: {{ className }}Client
-  {%- if returnType !== 'void' %}
-  returnCallback?: (returnValue: Dao['methods']['{{ methodSignature }}']['returns']) => void
-  {%- endif %}
   {%- for arg in args %}
   {{ arg }}: {{ fullName }}Args['{{ arg }}']
   {%- endfor %}
@@ -38,7 +35,7 @@ const {{ fullName }} = (props: Props) => {
   const callMethod = async () => {
     setLoading(true)
     console.log(`Calling {{ methodName }}`)
-    {% if returnType !== 'void' %}const result = {% endif -%}await props.typedClient.{% if isCreate %}create.{% endif %}{{ methodName }}(
+    await props.typedClient.{% if isCreate %}create.{% endif %}{{ methodName }}(
       {% raw %}{{% endraw %}
       {%- for arg in args %}
         {{ arg }}: props.{{ arg }},
@@ -48,11 +45,6 @@ const {{ fullName }} = (props: Props) => {
         sender: { signer, addr: activeAddress! },
       },{% endraw %}
     )
-    {% if returnType !== 'void' %}
-    if (props.returnCallback) {
-      props.returnCallback(result)
-    }
-    {% endif %}
     setLoading(false)
   }
 

@@ -16,7 +16,6 @@ type Props = {
   buttonLoadingNode?: ReactNode
   buttonNode: ReactNode
   typedClient: DaoClient
-  returnCallback?: (returnValue: Dao['methods']['getVotes()(uint64,uint64)']['returns']) => void
 }
 
 const DaoGetVotes = (props: Props) => {
@@ -26,18 +25,13 @@ const DaoGetVotes = (props: Props) => {
   const callMethod = async () => {
     setLoading(true)
     console.log(`Calling getVotes`)
-    const result = await props.typedClient.getVotes(
+    await props.typedClient.getVotes(
       {
       },
       {
         sender: { signer, addr: activeAddress! },
       },
     )
-    
-    if (props.returnCallback) {
-      props.returnCallback(result)
-    }
-    
     setLoading(false)
   }
 

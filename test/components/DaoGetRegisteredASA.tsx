@@ -16,7 +16,6 @@ type Props = {
   buttonLoadingNode?: ReactNode
   buttonNode: ReactNode
   typedClient: DaoClient
-  returnCallback?: (returnValue: Dao['methods']['getRegisteredASA()uint64']['returns']) => void
 }
 
 const DaoGetRegisteredASA = (props: Props) => {
@@ -26,18 +25,13 @@ const DaoGetRegisteredASA = (props: Props) => {
   const callMethod = async () => {
     setLoading(true)
     console.log(`Calling getRegisteredASA`)
-    const result = await props.typedClient.getRegisteredASA(
+    await props.typedClient.getRegisteredASA(
       {
       },
       {
         sender: { signer, addr: activeAddress! },
       },
     )
-    
-    if (props.returnCallback) {
-      props.returnCallback(result)
-    }
-    
     setLoading(false)
   }
 

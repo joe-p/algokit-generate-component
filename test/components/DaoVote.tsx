@@ -40,7 +40,6 @@ const DaoVote = (props: Props) => {
         sender: { signer, addr: activeAddress! },
       },
     )
-    
     setLoading(false)
   }
 

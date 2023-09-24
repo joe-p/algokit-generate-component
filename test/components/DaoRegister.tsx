@@ -37,7 +37,6 @@ const DaoRegister = (props: Props) => {
         sender: { signer, addr: activeAddress! },
       },
     )
-    
     setLoading(false)
   }
 
