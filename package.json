@@ -1,6 +1,19 @@
 {
-  "name": "generate-algo-component",
-  "module": "index.ts",
+  "name": "@joe-p/algokit-generate-component",
+  "version": "0.1.0",
+  "module": "src/index.js",
+  "files":[
+    "bin/algokit-generate-component.js",
+    "src/*.js",
+    "src/*.d.ts",
+    "templates/*"
+  ],
+  "bin": {
+    "algokit-generate-component": "bin/algokit-generate-component.js"
+  },
+  "scripts": {
+    "prepack": "tsc"
+  },
   "devDependencies": {
     "@types/nunjucks": "^3.2.3",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
