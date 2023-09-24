@@ -13,5 +13,5 @@ result.forEach((r) => writeFileSync(path.join(outDir, `${r.name}.tsx`), r.conten
 console.log('If you are using the Algokit react template add these imports to your App.tsx to use the components:\n');
 
 result.forEach((r) => {
-  console.log(`import ${r.name} from '${path.join(outDir, `${r.name}.tsx`)}'`);
+  console.log(`import ${r.name} from 'components/${r.name}'`);
 });
