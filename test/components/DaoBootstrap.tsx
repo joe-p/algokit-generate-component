@@ -26,8 +26,7 @@ const DaoBootstrap = (props: Props) => {
     setLoading(true)
     console.log(`Calling bootstrap`)
     await props.typedClient.bootstrap(
-      {
-      },
+      {},
       {
         sender: { signer, addr: activeAddress! },
       },

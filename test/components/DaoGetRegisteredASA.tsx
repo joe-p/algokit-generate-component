@@ -26,8 +26,7 @@ const DaoGetRegisteredASA = (props: Props) => {
     setLoading(true)
     console.log(`Calling getRegisteredASA`)
     await props.typedClient.getRegisteredASA(
-      {
-      },
+      {},
       {
         sender: { signer, addr: activeAddress! },
       },

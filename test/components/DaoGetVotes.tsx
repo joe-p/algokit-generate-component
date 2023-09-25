@@ -26,8 +26,7 @@ const DaoGetVotes = (props: Props) => {
     setLoading(true)
     console.log(`Calling getVotes`)
     await props.typedClient.getVotes(
-      {
-      },
+      {},
       {
         sender: { signer, addr: activeAddress! },
       },

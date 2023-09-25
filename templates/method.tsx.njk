@@ -36,6 +36,7 @@ const {{ fullName }} = (props: Props) => {
     setLoading(true)
     console.log(`Calling {{ methodName }}`)
     await props.typedClient.{% if isCreate %}create.{% endif %}{{ methodName }}(
+    {%- if args | length > 0%}
       {% raw %}{{% endraw %}
       {%- for arg in args %}
         {{ arg }}: props.{{ arg }},
@@ -44,6 +45,12 @@ const {{ fullName }} = (props: Props) => {
       {
         sender: { signer, addr: activeAddress! },
       },{% endraw %}
+    {%- else %}
+      {% raw %}{},
+      {
+        sender: { signer, addr: activeAddress! },
+      },{% endraw %}
+    {%- endif %}
     )
     setLoading(false)
   }

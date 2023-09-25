@@ -26,8 +26,7 @@ const DaoGetProposal = (props: Props) => {
     setLoading(true)
     console.log(`Calling getProposal`)
     await props.typedClient.getProposal(
-      {
-      },
+      {},
       {
         sender: { signer, addr: activeAddress! },
       },
