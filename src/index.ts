@@ -1,9 +1,9 @@
 import nunjucks from 'nunjucks';
+import path from 'path';
 
 type GeneratedComponent = {name: string, content: string}
 
 export default function generate(inputString: string): GeneratedComponent[] {
-  nunjucks.configure('templates');
   const appSpec = JSON.parse(inputString);
   const className = appSpec.contract.name;
   const result: GeneratedComponent[] = [];
@@ -19,15 +19,18 @@ export default function generate(inputString: string): GeneratedComponent[] {
     const capitalizedMethodName = methodName.charAt(0).toUpperCase() + methodName.slice(1);
     const fullName = `${className}${capitalizedMethodName}`;
 
-    const content = nunjucks.render('method.tsx.njk', {
-      className,
-      methodName,
-      methodSignature,
-      args: args.map((a: {name: string}) => a.name),
-      returnType: methodSignature.split(')').at(-1),
-      isCreate: callConfig.no_op === 'CREATE',
-      fullName,
-    });
+    const content = nunjucks.render(
+      path.join(path.dirname(import.meta.url.replace('file:', '')), '..', 'templates', 'method.tsx.njk'),
+      {
+        className,
+        methodName,
+        methodSignature,
+        args: args.map((a: {name: string}) => a.name),
+        returnType: methodSignature.split(')').at(-1),
+        isCreate: callConfig.no_op === 'CREATE',
+        fullName,
+      },
+    );
 
     result.push({ name: fullName, content });
   });
