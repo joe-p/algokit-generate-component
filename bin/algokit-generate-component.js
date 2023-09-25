@@ -2,7 +2,7 @@
 /* eslint-disable no-console */
 import path from 'path';
 import { readFileSync, writeFileSync } from 'fs';
-import generate from '../src/index';
+import generate from '../src/index.js';
 
 const outDir = process.argv[3];
 const inputString = readFileSync(process.argv[2], 'utf8');
