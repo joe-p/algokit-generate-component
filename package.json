@@ -1,6 +1,6 @@
 {
   "name": "@joe-p/algokit-generate-component",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "module": "src/index.js",
   "files":[
     "bin/algokit-generate-component.js",
