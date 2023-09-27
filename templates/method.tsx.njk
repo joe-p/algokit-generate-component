@@ -6,7 +6,7 @@ import { useWallet } from '@txnlab/use-wallet'
 /* Example usage
 <{{ fullName }}
   buttonClass="btn m-2"
-  buttonLoadingNode=<span className="loading loading-spinner" />
+  buttonLoadingNode={% raw %}{{% endraw %}<span className="loading loading-spinner" />{% raw %}}{% endraw %}
   buttonNode="Call {{ methodName }}"
   typedClient={typedClient}
   {%- for arg in args %}

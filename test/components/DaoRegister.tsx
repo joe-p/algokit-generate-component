@@ -6,7 +6,7 @@ import { useWallet } from '@txnlab/use-wallet'
 /* Example usage
 <DaoRegister
   buttonClass="btn m-2"
-  buttonLoadingNode=<span className="loading loading-spinner" />
+  buttonLoadingNode={<span className="loading loading-spinner" />}
   buttonNode="Call register"
   typedClient={typedClient}
   registeredASA={registeredASA}
