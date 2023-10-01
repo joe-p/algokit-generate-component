@@ -27,6 +27,7 @@ type Props = {
 const DaoVote = (props: Props) => {
   const [loading, setLoading] = useState<boolean>(false)
   const { activeAddress, signer } = useWallet()
+  const sender = { signer, addr: activeAddress! }
 
   const callMethod = async () => {
     setLoading(true)
@@ -36,9 +37,7 @@ const DaoVote = (props: Props) => {
         inFavor: props.inFavor,
         registeredASA: props.registeredASA,
       },
-      {
-        sender: { signer, addr: activeAddress! },
-      },
+      { sender },
     )
     setLoading(false)
   }

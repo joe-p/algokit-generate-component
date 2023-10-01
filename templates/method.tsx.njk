@@ -31,6 +31,7 @@ type Props = {
 const {{ fullName }} = (props: Props) => {
   const [loading, setLoading] = useState<boolean>(false)
   const { activeAddress, signer } = useWallet()
+  const sender = {% raw %}{ signer, addr: activeAddress! }{% endraw %}
 
   const callMethod = async () => {
     setLoading(true)
@@ -42,14 +43,10 @@ const {{ fullName }} = (props: Props) => {
         {{ arg }}: props.{{ arg }},
       {%- endfor %}
       {% raw %}},
-      {
-        sender: { signer, addr: activeAddress! },
-      },{% endraw %}
+      { sender },{% endraw %}
     {%- else %}
       {% raw %}{},
-      {
-        sender: { signer, addr: activeAddress! },
-      },{% endraw %}
+      { sender },{% endraw %}
     {%- endif %}
     )
     setLoading(false)

@@ -21,15 +21,14 @@ type Props = {
 const DaoGetProposal = (props: Props) => {
   const [loading, setLoading] = useState<boolean>(false)
   const { activeAddress, signer } = useWallet()
+  const sender = { signer, addr: activeAddress! }
 
   const callMethod = async () => {
     setLoading(true)
     console.log(`Calling getProposal`)
     await props.typedClient.getProposal(
       {},
-      {
-        sender: { signer, addr: activeAddress! },
-      },
+      { sender },
     )
     setLoading(false)
   }

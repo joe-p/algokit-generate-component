@@ -21,15 +21,14 @@ type Props = {
 const DaoBootstrap = (props: Props) => {
   const [loading, setLoading] = useState<boolean>(false)
   const { activeAddress, signer } = useWallet()
+  const sender = { signer, addr: activeAddress! }
 
   const callMethod = async () => {
     setLoading(true)
     console.log(`Calling bootstrap`)
     await props.typedClient.bootstrap(
       {},
-      {
-        sender: { signer, addr: activeAddress! },
-      },
+      { sender },
     )
     setLoading(false)
   }

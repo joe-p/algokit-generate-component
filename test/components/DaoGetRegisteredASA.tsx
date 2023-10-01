@@ -21,15 +21,14 @@ type Props = {
 const DaoGetRegisteredASA = (props: Props) => {
   const [loading, setLoading] = useState<boolean>(false)
   const { activeAddress, signer } = useWallet()
+  const sender = { signer, addr: activeAddress! }
 
   const callMethod = async () => {
     setLoading(true)
     console.log(`Calling getRegisteredASA`)
     await props.typedClient.getRegisteredASA(
       {},
-      {
-        sender: { signer, addr: activeAddress! },
-      },
+      { sender },
     )
     setLoading(false)
   }

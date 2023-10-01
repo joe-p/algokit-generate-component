@@ -25,6 +25,7 @@ type Props = {
 const DaoCreateApplication = (props: Props) => {
   const [loading, setLoading] = useState<boolean>(false)
   const { activeAddress, signer } = useWallet()
+  const sender = { signer, addr: activeAddress! }
 
   const callMethod = async () => {
     setLoading(true)
@@ -33,9 +34,7 @@ const DaoCreateApplication = (props: Props) => {
       {
         proposal: props.proposal,
       },
-      {
-        sender: { signer, addr: activeAddress! },
-      },
+      { sender },
     )
     setLoading(false)
   }

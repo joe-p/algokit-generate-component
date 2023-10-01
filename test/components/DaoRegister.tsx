@@ -25,6 +25,7 @@ type Props = {
 const DaoRegister = (props: Props) => {
   const [loading, setLoading] = useState<boolean>(false)
   const { activeAddress, signer } = useWallet()
+  const sender = { signer, addr: activeAddress! }
 
   const callMethod = async () => {
     setLoading(true)
@@ -33,9 +34,7 @@ const DaoRegister = (props: Props) => {
       {
         registeredASA: props.registeredASA,
       },
-      {
-        sender: { signer, addr: activeAddress! },
-      },
+      { sender },
     )
     setLoading(false)
   }
