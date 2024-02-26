@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import { ReactNode, useState } from 'react'
-import { {{ className }}, {{ className }}Client } from '../contracts/DaoClient'
+import { {{ className }}, {{ className }}Client } from '../contracts/{{ className }}Client'
 import { useWallet } from '@txnlab/use-wallet'
 
 /* Example usage
@@ -15,7 +15,7 @@ import { useWallet } from '@txnlab/use-wallet'
 />
 */
 {% if args | length -%}
-type {{ fullName }}Args = Dao['methods']['{{ methodSignature }}']['argsObj']
+type {{ fullName }}Args = {{ className }}['methods']['{{ methodSignature }}']['argsObj']
 
 {% endif -%}
 type Props = {
